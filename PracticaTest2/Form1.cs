@@ -198,6 +198,7 @@ namespace PracticaTest2
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            EmailScheduler.Start();
             //dtpBegin.Format = DateTimePickerFormat.Custom;
             //dtpBegin.CustomFormat = "yyyy-MM-dd hh:mm:ss";
             //dtpEnd.Format = DateTimePickerFormat.Custom;
