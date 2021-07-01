@@ -15,6 +15,7 @@ namespace PracticaTest2
         public Form2()
         {
             InitializeComponent();
+            tbPost.Text = Properties.Settings.Default.email;
         }
 
         private void TextBox3_TextChanged(object sender, EventArgs e)
@@ -25,6 +26,12 @@ namespace PracticaTest2
         private void Button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.email = tbPost.Text;
+            Properties.Settings.Default.Save();
         }
     }
 }
