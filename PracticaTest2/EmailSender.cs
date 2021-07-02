@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Quartz;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Sockets;
 
 
 namespace PracticaTest2
@@ -15,46 +16,63 @@ namespace PracticaTest2
 
         public async Task Execute(IJobExecutionContext context)
 
-
         {
-            // отправитель - устанавливаем адрес и отображаемое в письме имя
-            MailAddress from = new MailAddress("Почта отправителя", "Tom");
-            // кому отправляем
-            MailAddress to = new MailAddress("Почта получателя");
-            // создаем объект сообщения
-            MailMessage m = new MailMessage(from, to);
-            // тема письма
-            m.Subject = "Тест";
-            // текст письма
-            m.Body = "<h2>Письмо-тест работы smtp-клиента</h2>";
-            // письмо представляет код html
-            m.IsBodyHtml = true;
-            // адрес smtp-сервера и порт, с которого будем отправлять письмо
-            SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
-            // логин и пароль
-            smtp.Credentials = new NetworkCredential("Почта отправителя", "Пароль отправителя");
-            smtp.EnableSsl = true;
-            await smtp.SendMailAsync(m);
+            try { 
+                // Буфер для входящих данных
+                byte[] bytes = new byte[1024];
 
+                // Соединяемся с удаленным устройством
 
+                // Устанавливаем удаленную точку для сокета
+                IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+                IPAddress ipAddr = ipHost.AddressList[0];
+                IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
 
+                Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
+                // Соединяем сокет с удаленной точкой
+                sender.Connect(ipEndPoint);
 
-            //using (MailMessage message = new MailMessage("admin@yandex.ru", "user@yandex.ru"))
-            //{
-            //    message.Subject = "Новостная рассылка";
-            //    message.Body = "Новости сайта: бла бла бла";
-            //    using (SmtpClient client = new SmtpClient
-            //    {
-            //        EnableSsl = true,
-            //        Host = "smtp.yandex.ru",
-            //        Port = 25,
-            //        Credentials = new NetworkCredential("admin@yandex.ru", "password")
-            //    })
-            //    {
-            //        await client.SendMailAsync(message);
-            //    }
-            //}
+                string message = "3";
+                //Console.Write("Введите сообщение: ");
+                //if (number == 1)
+                //{
+                //    message = "1 " + Properties.Settings.Default.email;
+                //}
+                //else if (number == 2)
+                //{
+                //    message = "2 " + "Server=" + Properties.Settings.Default.serverAddress + ";Database=" + Properties.Settings.Default.dbname + ";User Id=" + Properties.Settings.Default.login + ";Password=" + Properties.Settings.Default.password;
+                //}
+                //else if (number == 3)
+                //{
+                //    message = "3";
+                //}
+
+                Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+
+                // Отправляем данные через сокет
+                int bytesSent = sender.Send(msg);
+
+                // Получаем ответ от сервера
+                int bytesRec = sender.Receive(bytes);
+                if (Encoding.UTF8.GetString(bytes, 0, bytesRec) == "good")
+                {
+                    Properties.Settings.Default.working = "Работает";
+                    Properties.Settings.Default.Save();
+                }
+                Console.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec));
+
+                // Освобождаем сокет
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+            }
+            catch
+            {
+                Properties.Settings.Default.working = "Не работает";
+                Properties.Settings.Default.Save();
+            }
+
         }
     }
 }

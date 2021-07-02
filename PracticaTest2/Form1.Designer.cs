@@ -141,15 +141,17 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Все"});
-            this.comboBox1.Location = new System.Drawing.Point(442, 110);
+            this.comboBox1.Location = new System.Drawing.Point(473, 110);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(431, 28);
+            this.comboBox1.Size = new System.Drawing.Size(258, 28);
             this.comboBox1.TabIndex = 8;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
@@ -172,51 +174,61 @@
             // 
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
+            this.ID.Width = 55;
             // 
             // HarrisID
             // 
             this.HarrisID.HeaderText = "HarrisID";
             this.HarrisID.Name = "HarrisID";
+            this.HarrisID.Width = 102;
             // 
             // DateTimeS
             // 
             this.DateTimeS.HeaderText = "DateTimeS";
             this.DateTimeS.Name = "DateTimeS";
+            this.DateTimeS.Width = 122;
             // 
             // FileName
             // 
             this.FileName.HeaderText = "FileName";
             this.FileName.Name = "FileName";
+            this.FileName.Width = 109;
             // 
             // FileNameDest
             // 
             this.FileNameDest.HeaderText = "FileNameDest";
             this.FileNameDest.Name = "FileNameDest";
+            this.FileNameDest.Width = 145;
             // 
             // Operation
             // 
             this.Operation.HeaderText = "Operation";
             this.Operation.Name = "Operation";
+            this.Operation.Width = 111;
             // 
             // MngrName
             // 
             this.MngrName.HeaderText = "MngrName";
             this.MngrName.Name = "MngrName";
+            this.MngrName.Width = 120;
             // 
             // MngrID
             // 
             this.MngrID.HeaderText = "MngrID";
             this.MngrID.Name = "MngrID";
+            this.MngrID.Width = 93;
             // 
             // ErrStatus
             // 
             this.ErrStatus.HeaderText = "ErrStatus";
             this.ErrStatus.Name = "ErrStatus";
+            this.ErrStatus.Width = 109;
             // 
             // Comment
             // 
             this.Comment.HeaderText = "Comment";
             this.Comment.Name = "Comment";
+            this.Comment.Width = 110;
             // 
             // buttonDownErrors
             // 
@@ -246,7 +258,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(896, 485);
+            this.ClientSize = new System.Drawing.Size(896, 490);
             this.Controls.Add(this.buttonSettings);
             this.Controls.Add(this.buttonDownErrors);
             this.Controls.Add(this.dataGridView1);
@@ -263,6 +275,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Контроль ошибок";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

@@ -5,20 +5,45 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
+
 namespace PracticaTest2
 {
+
+
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
+            //trayIcon = new NotifyIcon();
+            //trayIcon.Text = "My application";
+            //trayIcon.Icon = TheIcon
         }
         List<string[]> data1 = new List<string[]>();
         List<string[]> data2 = new List<string[]>();
+
+
+        async void updateStatus()
+        {
+            while (true) { 
+            labelStatus.Text = Properties.Settings.Default.working;
+            if (labelStatus.Text == "Не работает")
+                {
+                    labelStatus.ForeColor = System.Drawing.Color.Red;
+                }
+            else
+                {
+                    labelStatus.ForeColor = System.Drawing.Color.Green;
+                }
+            await Task.Delay(60000);
+            }
+        }
 
         private void ButtonSettings_Click(object sender, EventArgs e)
         {
@@ -39,25 +64,8 @@ namespace PracticaTest2
                 comboBox1.Items.Clear();
                 comboBox1.Items.Add("Все");
 
-                //SqlConnection conn = new SqlConnection(connectionString);
-                //try
-                //{
-                //    // Открываем подключение
-                //    conn.Open();
-                //    Console.WriteLine("Подключение открыто");
-                //}
-                //catch (SqlException ex)
-                //{
-                //    Console.WriteLine(ex.Message);
-                //}
-                //finally
-                //{
-                //    // закрываем подключение
-                //    conn.Close();
-                //    Console.WriteLine("Подключение закрыто...");
-                //}
-                
 
+                string connectionString1 = "Server=" + Properties.Settings.Default.serverAddress + ";Database=" + Properties.Settings.Default.dbname + ";User Id=" + Properties.Settings.Default.login + ";Password=" + Properties.Settings.Default.password; 
                 string connectionString = "Server=.\\SQLEXPRESS;Database=Test;Trusted_Connection=True;";
                 string sqlExpression = String.Format("SELECT * FROM PMServiceLogs WHERE ErrStatus = 1 AND DateTimeS BETWEEN '{0}' AND '{1}' ORDER BY ID", dtpBegin.Value.ToString("yyyy-MM-ddThh:mm:ss"), dtpEnd.Value.ToString("yyyy-MM-ddThh:mm:ss"));
                 string sqlExpression1 = String.Format("SELECT * FROM PMServiceLogs_H WHERE ErrStatus = 1 AND DateTimeS BETWEEN '{0}' AND '{1}' ORDER BY ID", dtpBegin.Value.ToString("yyyy-MM-ddThh:mm:ss"), dtpEnd.Value.ToString("yyyy-MM-ddThh:mm:ss"));
@@ -169,6 +177,8 @@ namespace PracticaTest2
                             }
                         }
 
+                        
+
                         reader2.Close();
 
                         foreach (string[] s in data1)
@@ -198,12 +208,11 @@ namespace PracticaTest2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            EmailScheduler.Start();
-            //dtpBegin.Format = DateTimePickerFormat.Custom;
-            //dtpBegin.CustomFormat = "yyyy-MM-dd hh:mm:ss";
-            //dtpEnd.Format = DateTimePickerFormat.Custom;
-            //dtpEnd.CustomFormat = "yyyy-MM-dd hh:mm:ss";
-            //Console.WriteLine(dtpBegin.Value);
+            updateStatus();
+            Thread myThread = new Thread(new ThreadStart(EmailScheduler.Start)); //EmailScheduler.Start();
+            myThread.Start();
+
+            //labelStatus.Text = Properties.Settings.Default.working;
             dataGridView1.Rows.Clear();
             data1.Clear();
             data2.Clear();
@@ -366,6 +375,17 @@ namespace PracticaTest2
                         dataGridView1.Rows.Add(s);
                 }
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //this.Hide();
+            //e.Cancel = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

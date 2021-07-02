@@ -12,7 +12,6 @@ C:\Users\gl735v\source\repos\PracticaTest2\PracticaTest2\obj\Debug\PracticaTest2
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\bin\Debug\PracticaTest2.exe.config
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\bin\Debug\PracticaTest2.exe
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\bin\Debug\PracticaTest2.pdb
-D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\obj\Debug\PracticaTest2.csprojAssemblyReference.cache
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\obj\Debug\PracticaTest2.Form1.resources
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\obj\Debug\PracticaTest2.Form2.resources
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\obj\Debug\PracticaTest2.Properties.Resources.resources
@@ -133,3 +132,4 @@ D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\bin\Debug\System.Web.W
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\bin\Debug\System.Web.WebPages.Razor.xml
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\obj\Debug\PracticaTest2.exe.config
 D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\obj\Debug\PracticaTest2.csproj.CopyComplete
+D:\С++\Practica2021-main\Practica2021-main\PracticaTest2\obj\Debug\PracticaTest2.csprojAssemblyReference.cache
