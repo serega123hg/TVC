@@ -28,7 +28,7 @@ namespace PracticaTest2
         List<string[]> data1 = new List<string[]>();
         List<string[]> data2 = new List<string[]>();
 
-
+        // меняем текст лейбла
         async void updateStatus()
         {
             while (true) { 
@@ -41,7 +41,7 @@ namespace PracticaTest2
                 {
                     labelStatus.ForeColor = System.Drawing.Color.Green;
                 }
-            await Task.Delay(60000);
+            await Task.Delay(30000);
             }
         }
 
